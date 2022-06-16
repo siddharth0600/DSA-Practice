@@ -36,9 +36,9 @@ bool solve(int node, int n, bool gr[101][101], vector<int> &col, int m){
   
 
 bool graphColoring(bool gr[101][101], int m, int n) {
-    vector<int> adj[n];
     
-    int i,j;
+    
+    
  
         
         vector<int> color(n);
