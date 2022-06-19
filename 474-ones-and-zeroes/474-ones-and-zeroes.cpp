@@ -1,20 +1,31 @@
 class Solution {
 public:
-    vector<vector<vector<int>>> dp;
     int findMaxForm(vector<string>& strs, int m, int n) {
-        dp.resize(m+1,vector<vector<int>>(n+1,vector<int>(strs.size(),-1)));
-        return findMax(strs,m,n,0);
-    }
-    int findMax(vector<string>& strs, int m, int n,int index){
-        if(index==strs.size()) return 0;
-        if(dp[m][n][index]!=-1) return dp[m][n][index];
+        vector<vector<vector<int>>>dp(strs.size()+1,vector<vector<int>>(m+1,vector<int>(n+1)));
         
-        int countZeroes=count(strs[index].begin(),strs[index].end(),'0');
-        int countOnes=strs[index].size()-countZeroes;
         
-        if(m-countZeroes>=0 && n-countOnes>=0)
-            return dp[m][n][index]=max(1+findMax(strs,m-countZeroes,n-countOnes,index+1),findMax(strs,m,n,index+1));
+        for(int i=1;i<=strs.size();i++)
+        {     
+            int countzeroes = count(strs[i-1].begin(),strs[i-1].end(),'0');
+            int countones = strs[i-1].size()-countzeroes;
+            
+            for(int j=0;j<=m;j++)
+            {
+                for(int k=0;k<=n;k++)
+                {
+                    //two choices
+                    if(j-countzeroes>=0 && k-countones>=0 )
+                  dp[i][j][k] = max(1+dp[i-1][j-countzeroes][k-countones], dp[i-1][j][k]);
+                    else dp[i][j][k] =  dp[i-1][j][k];
+                    
+                }
+                
+                
+            }      
+            
+            
+        }
         
-        return dp[m][n][index]=findMax(strs,m,n,index+1);
+        return dp[strs.size()][m][n];
     }
 };
