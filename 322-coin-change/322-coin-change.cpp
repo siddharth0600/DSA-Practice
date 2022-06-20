@@ -10,9 +10,10 @@ public:
         if(dp[index][target]!=-1) return dp[index][target];
         
         int notTake = helper(coins,target,index-1,dp);
+        // here we have passed index-1 because in this case we are not even using the denomination
         int take=INT_MAX;
         if(coins[index]<=target) take=1+helper(coins,target-coins[index],index,dp);
-        
+        // In the above if condition we have passed index not index-1 because in the question it was given that we can use one denomination multiple times
         return dp[index][target]=min(take,notTake);
     }
     
