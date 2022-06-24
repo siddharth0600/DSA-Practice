@@ -4,8 +4,7 @@ public:
     stack<int> s2;
     
     MyQueue() {
-        s1 = stack<int>();
-        s2 = stack<int>();
+        
         
     }
     
